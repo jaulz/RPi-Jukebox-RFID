@@ -67,6 +67,14 @@ add_wireless_network() {
     local pass="$3"
     local prio="$4"
 
+    # Entferne umschließende einfache Anführungszeichen, falls vorhanden (wegen Übergabe aus PHP)
+    ssid="${ssid%\'}"
+    ssid="${ssid#\'}"
+    pass="${pass%\'}"
+    pass="${pass#\'}"
+    prio="${prio%\'}"
+    prio="${prio#\'}"
+
     pass=$(_get_passphrase_for_config "$ssid" "$pass")
 
     if [[ $(is_dhcpcd_enabled) == true ]]; then

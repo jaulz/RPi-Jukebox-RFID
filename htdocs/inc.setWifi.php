@@ -30,7 +30,8 @@ if(isset($_POST["submitWifi"]) && $_POST["submitWifi"] == "submit") {
                 if(!isset($temp_prio) || !is_numeric($temp_prio)) {
                     $temp_prio = 0;
                 }
-                $exec .= "add_wireless_network wlan0 ".$temp_ssid." ".$temp_pass." ".$temp_prio."\n";
+                // SSID und Passwort in einfache Anführungszeichen setzen, um Leerzeichen zu erhalten
+                $exec .= "add_wireless_network wlan0 '".str_replace("'", "'\\''", $temp_ssid)."' '".str_replace("'", "'\\''", $temp_pass)."' '".$temp_prio."'\n";
             }
         }
     }
