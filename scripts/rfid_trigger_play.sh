@@ -79,6 +79,8 @@ if [ "$CARDID" ]; then
     # If you want to see the CARDID printed, uncomment the following line
     # echo CARDID = $CARDID
 
+    mpg123 $PATHDATA/../misc/beep.mp3
+
     # Add info into the log, making it easer to monitor cards
     echo "Card ID '$CARDID' was used at '$NOW'." > $PATHDATA/../shared/latestID.txt
     echo "$CARDID" > $PATHDATA/../settings/Latest_RFID
