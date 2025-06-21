@@ -21,8 +21,12 @@ try:
             keyevent = categorize(event)
             if keyevent.keystate == KeyEvent.key_down:
                 button_string = keyevent.keycode
-                if type(button_string) is list:
+
+                print(button_string)
+
+                if type(button_string) is list or type(button_string) is tuple:
                     button_string = '-'.join(sorted(button_string))
+
                 try:
                     function_name = button_map[button_string]
                     function_args = button_map[button_string + "_args"]
