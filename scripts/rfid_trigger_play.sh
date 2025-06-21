@@ -379,8 +379,6 @@ if [ "$CARDID" ]; then
             # check if CARDID has a text file by the same name - which would contain the human readable folder name
             if [ -f $PATHDATA/../shared/shortcuts/$CARDID ]
             then
-                play_beep
-
                 # Read human readable shortcut from file
                 FOLDER=`cat $PATHDATA/../shared/shortcuts/$CARDID`
                 # Add info into the log, making it easer to monitor cards
@@ -420,6 +418,8 @@ if [ ! -z "$FOLDER" ]; then
 
     # check if $FOLDER points to existing directory
     if [ -d "${AUDIOFOLDERSPATH}/${FOLDER}" ]; then
+        play_beep
+
         if [ "${DEBUG_rfid_trigger_play_sh}" == "TRUE" ]; then echo "\$FOLDER not empty and dir exists: ${AUDIOFOLDERSPATH}/${FOLDER}" >> $PATHDATA/../logs/debug.log; fi
 
         # if we play a folder the first time, add some sensible information to the folder.conf
@@ -582,7 +582,7 @@ if [ ! -z "$FOLDER" ]; then
         fi
     else
         play_zonk
-        
+
         if [ "${DEBUG_rfid_trigger_play_sh}" == "TRUE" ]; then echo "Path not found $AUDIOFOLDERSPATH/$FOLDER" >> $PATHDATA/../logs/debug.log; fi
     fi
 else
