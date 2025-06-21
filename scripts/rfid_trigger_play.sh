@@ -74,12 +74,20 @@ if [ "${DEBUG_rfid_trigger_play_sh}" == "TRUE" ]; then echo "Sync: SYNCSHAREDENA
 ##################################################################
 # Check if we got the card ID or the audio folder from the prompt.
 # Sloppy error check, because we assume the best.
+play_beep() {
+  mpg123 $PATHDATA/../misc/beep.mp3
+}
+
+play_zonk() {
+  mpg123 $PATHDATA/../misc/zonk.mp3
+}
+
 if [ "$CARDID" ]; then
     # we got the card ID
     # If you want to see the CARDID printed, uncomment the following line
     # echo CARDID = $CARDID
 
-    mpg123 $PATHDATA/../misc/beep.mp3
+    play_beep
 
     # Add info into the log, making it easer to monitor cards
     echo "Card ID '$CARDID' was used at '$NOW'." > $PATHDATA/../shared/latestID.txt
@@ -386,6 +394,7 @@ if [ "$CARDID" ]; then
                 # Add info into the log, making it easer to monitor cards
                 echo "This ID was used for the first time." >> $PATHDATA/../shared/latestID.txt
                 if [ "${DEBUG_rfid_trigger_play_sh}" == "TRUE" ]; then echo "This ID was used for the first time."   >> $PATHDATA/../logs/debug.log; fi
+                play_zonk
             fi
             # Add info into the log, making it easer to monitor cards
             echo "The shortcut points to audiofolder '$FOLDER'." >> $PATHDATA/../shared/latestID.txt
