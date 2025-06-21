@@ -387,8 +387,6 @@ if [ "$CARDID" ]; then
                 echo "This ID has been used before." >> $PATHDATA/../shared/latestID.txt
                 if [ "${DEBUG_rfid_trigger_play_sh}" == "TRUE" ]; then echo "This ID has been used before."   >> $PATHDATA/../logs/debug.log; fi
             else
-                play_zonk
-                
                 # Human readable shortcut does not exists, so create one with the content $CARDID
                 # this file can later be edited manually over the samba network
                 echo "$CARDID" > $PATHDATA/../shared/shortcuts/$CARDID
@@ -583,6 +581,8 @@ if [ ! -z "$FOLDER" ]; then
             $PATHDATA/playout_controls.sh -c=playernext
         fi
     else
+        play_zonk
+        
         if [ "${DEBUG_rfid_trigger_play_sh}" == "TRUE" ]; then echo "Path not found $AUDIOFOLDERSPATH/$FOLDER" >> $PATHDATA/../logs/debug.log; fi
     fi
 else
