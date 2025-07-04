@@ -26,6 +26,7 @@ def setup_gpio():
     # before we set it to LOW later.
     # GPIO.setup(CUT_PIN, GPIO.OUT)
     GPIO.setup(OUTPUT_PIN, GPIO.OUT)
+    GPIO.output(OUTPUT_PIN, GPIO.HIGH) # Ensure it's high initially
 
 # --- Main Logic ---
 def main():
