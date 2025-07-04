@@ -42,7 +42,7 @@ def main():
         GPIO.wait_for_edge(INPUT_PIN, GPIO.FALLING, bouncetime=200)
         print("GPIO signal detected! Stopping services...")
 
-        # You can add as many services as needed.
+        # Stop services
         services = [
             "autohotspot-daemon.service",
             "phoniebox-buttons-usb-encoder.service" 
@@ -79,7 +79,7 @@ def main():
                 print(f"An unexpected error occurred while stopping {service}: {e}")
         print("Finished attempting to stop services.")
 
-        # Set CUT_PINT to HIGH
+        # Set CUT_PIN to HIGH
         # GPIO.output(CUT_PIN, GPIO.HIGH)
 
         # Set OUTPUT_PIN to LOW
