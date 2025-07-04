@@ -44,7 +44,7 @@ def main():
 
         # Stop services
         services = [
-            "autohotspot-daemon.service",
+            # "autohotspot-daemon.service", # Never stop this because it seems to restart the machine
             "phoniebox-buttons-usb-encoder.service" 
             "phoniebox-gpio-control.service",
             "phoniebox-rfid-reader.service",
