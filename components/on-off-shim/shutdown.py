@@ -41,52 +41,53 @@ def main():
     """
     try:
         setup_gpio()
-           # Wait for a falling edge (button press)
-            # bouncetime helps debounce the signal, preventing multiple triggers from one press
-            GPIO.wait_for_edge(INPUT_PIN, GPIO.FALLING, bouncetime=200)
-            press_start_time = time.time()
-            print(f"Button pressed at {time.strftime('%H:%M:%S', time.localtime(press_start_time))}. Waiting for release...")
 
-            # Now wait for a rising edge (button release) or timeout
-            # We'll use a timeout here in case the button gets stuck or released quickly
-            # If the button is released before timeout, wait_for_edge returns the pin number
-            # If timeout occurs, it returns None.
-            # We need to make sure the pin is still LOW if we hit the timeout.
-            channel_detected = GPIO.wait_for_edge(INPUT_PIN, GPIO.RISING, timeout=int(PRESS_DURATION_SECONDS * 1000 * 2)) # Timeout is in milliseconds, double the expected press duration
-            
-            if channel_detected is None:
-                # This means the timeout occurred BEFORE a rising edge was detected.
-                # The button might still be held down.
-                # Check the current state of the pin. If it's still low, it was held for a long time.
-                if GPIO.input(INPUT_PIN) == GPIO.LOW:
-                    # Button is still pressed after the (PRESS_DURATION_SECONDS * 2) timeout.
-                    # Assume it was pressed long enough.
-                    press_end_time = time.time() # Just take current time
-                    duration = press_end_time - press_start_time
-                    print(f"Button held for an extended period (>{PRESS_DURATION_SECONDS*2}s). Assuming valid press.")
-                    
-                else:
-                    # This case means the button was released *just* after the timeout,
-                    # or there was some anomaly. Let's re-evaluate more robustly.
-                    # If it's HIGH, it was released before the full duration, but after wait_for_edge timeout.
-                    # For safety, let's just re-evaluate based on the initial check logic below.
-                    print("Timeout occurred, but button was released. Re-checking duration.")
-                    press_end_time = time.time() # Take current time for recalculation
-                    duration = press_end_time - press_start_time
+        # Wait for a falling edge (button press)
+        # bouncetime helps debounce the signal, preventing multiple triggers from one press
+        GPIO.wait_for_edge(INPUT_PIN, GPIO.FALLING, bouncetime=200)
+        press_start_time = time.time()
+        print(f"Button pressed at {time.strftime('%H:%M:%S', time.localtime(press_start_time))}. Waiting for release...")
 
-            else:
-                # Rising edge detected - button was released
-                press_end_time = time.time()
+        # Now wait for a rising edge (button release) or timeout
+        # We'll use a timeout here in case the button gets stuck or released quickly
+        # If the button is released before timeout, wait_for_edge returns the pin number
+        # If timeout occurs, it returns None.
+        # We need to make sure the pin is still LOW if we hit the timeout.
+        channel_detected = GPIO.wait_for_edge(INPUT_PIN, GPIO.RISING, timeout=int(PRESS_DURATION_SECONDS * 1000 * 2)) # Timeout is in milliseconds, double the expected press duration
+        
+        if channel_detected is None:
+            # This means the timeout occurred BEFORE a rising edge was detected.
+            # The button might still be held down.
+            # Check the current state of the pin. If it's still low, it was held for a long time.
+            if GPIO.input(INPUT_PIN) == GPIO.LOW:
+                # Button is still pressed after the (PRESS_DURATION_SECONDS * 2) timeout.
+                # Assume it was pressed long enough.
+                press_end_time = time.time() # Just take current time
                 duration = press_end_time - press_start_time
-                print(f"Button released at {time.strftime('%H:%M:%S', time.localtime(press_end_time))}. Duration: {duration:.2f} seconds.")
-
-            if duration >= PRESS_DURATION_SECONDS:
-                print(f"Valid press detected! Duration: {duration:.2f}s >= {PRESS_DURATION_SECONDS}s.")
-                break # Exit the loop, proceed to shutdown logic
+                print(f"Button held for an extended period (>{PRESS_DURATION_SECONDS*2}s). Assuming valid press.")
+                
             else:
-                print(f"Button press too short ({duration:.2f}s). Required: {PRESS_DURATION_SECONDS}s. Waiting for next press...")
-                # Continue the loop to wait for another falling edge
-                time.sleep(0.1) # Small delay to prevent immediate re-triggering on very fast presses/releases
+                # This case means the button was released *just* after the timeout,
+                # or there was some anomaly. Let's re-evaluate more robustly.
+                # If it's HIGH, it was released before the full duration, but after wait_for_edge timeout.
+                # For safety, let's just re-evaluate based on the initial check logic below.
+                print("Timeout occurred, but button was released. Re-checking duration.")
+                press_end_time = time.time() # Take current time for recalculation
+                duration = press_end_time - press_start_time
+
+        else:
+            # Rising edge detected - button was released
+            press_end_time = time.time()
+            duration = press_end_time - press_start_time
+            print(f"Button released at {time.strftime('%H:%M:%S', time.localtime(press_end_time))}. Duration: {duration:.2f} seconds.")
+
+        if duration >= PRESS_DURATION_SECONDS:
+            print(f"Valid press detected! Duration: {duration:.2f}s >= {PRESS_DURATION_SECONDS}s.")
+            break # Exit the loop, proceed to shutdown logic
+        else:
+            print(f"Button press too short ({duration:.2f}s). Required: {PRESS_DURATION_SECONDS}s. Waiting for next press...")
+            # Continue the loop to wait for another falling edge
+            time.sleep(0.1) # Small delay to prevent immediate re-triggering on very fast presses/releases
 
         print("GPIO signal detected! Stopping services...")
 
