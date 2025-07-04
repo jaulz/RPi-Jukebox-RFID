@@ -7,7 +7,7 @@ import subprocess
 INPUT_PIN = 17
 # GPIO pin for output (setting to low)
 OUTPUT_PIN = 4
-CUT_PIN=27
+# CUT_PIN = 27
 
 # --- Setup GPIO ---
 def setup_gpio():
@@ -24,7 +24,7 @@ def setup_gpio():
 
     # Setup OUTPUT_PIN as an output and initialize it to HIGH (or any safe state)
     # before we set it to LOW later.
-    GPIO.setup(CUT_PIN, GPIO.OUT)
+    # GPIO.setup(CUT_PIN, GPIO.OUT)
     GPIO.setup(OUTPUT_PIN, GPIO.OUT)
 
 # --- Main Logic ---
@@ -79,7 +79,7 @@ def main():
         print("Finished attempting to stop services.")
 
         # Set CUT_PINT to HIGH
-        GPIO.output(CUT_PIN, GPIO.HIGH)
+        # GPIO.output(CUT_PIN, GPIO.HIGH)
 
         # Set OUTPUT_PIN to LOW
         GPIO.output(OUTPUT_PIN, GPIO.LOW)
