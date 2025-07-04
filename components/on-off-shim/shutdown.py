@@ -134,7 +134,7 @@ def main():
         # GPIO.output(CUT_PIN, GPIO.HIGH)
 
         # Set OUTPUT_PIN to LOW
-        # GPIO.output(OUTPUT_PIN, GPIO.LOW)
+        GPIO.output(OUTPUT_PIN, GPIO.LOW)
         print(f"GPIO {OUTPUT_PIN} set to LOW.")
         print("Script finished.")
 
