@@ -53,6 +53,7 @@ def main():
         print(f"Attempting to stop services: {', '.join(services)}")
         for service in services:
             try:
+                print(f"Stopping {service}.")
                 # Use subprocess.run to execute the systemctl command
                 # capture_output=True to get stdout/stderr, text=True to decode as text
                 # check=True will raise CalledProcessError if the command returns a non-zero exit code
