@@ -42,15 +42,15 @@ def main():
         print("GPIO signal detected! Stopping services...")
 
         # You can add as many services as needed.
-        custom_services = [
+        services = [
             "autohotspot-daemon.service",
             "phoniebox-buttons-usb-encoder.service" 
             "phoniebox-gpio-control.service",
             "phoniebox-rfid-reader.service",
             "phoniebox-startup-scripts.service"
         ]
-        print(f"Attempting to stop custom services: {', '.join(custom_services)}")
-        for service in custom_services:
+        print(f"Attempting to stop services: {', '.join(services)}")
+        for service in services:
             try:
                 # Use subprocess.run to execute the systemctl command
                 # capture_output=True to get stdout/stderr, text=True to decode as text
@@ -76,7 +76,7 @@ def main():
                 print(f"Error: 'systemctl' command not found. Is systemd installed and in PATH?")
             except Exception as e:
                 print(f"An unexpected error occurred while stopping {service}: {e}")
-        print("Finished attempting to stop custom services.")
+        print("Finished attempting to stop services.")
 
         # Set CUT_PINT to HIGH
         GPIO.output(CUT_PIN, GPIO.HIGH)
