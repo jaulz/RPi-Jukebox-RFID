@@ -25,8 +25,8 @@ def setup_gpio():
     # Setup OUTPUT_PIN as an output and initialize it to HIGH (or any safe state)
     # before we set it to LOW later.
     # GPIO.setup(CUT_PIN, GPIO.OUT)
-    #GPIO.setup(OUTPUT_PIN, GPIO.OUT)
-    #GPIO.output(OUTPUT_PIN, GPIO.HIGH)
+    GPIO.setup(OUTPUT_PIN, GPIO.OUT)
+    GPIO.output(OUTPUT_PIN, GPIO.HIGH) # Ensure it's high initially
 
 # --- Main Logic ---
 def main():
@@ -42,12 +42,50 @@ def main():
         GPIO.wait_for_edge(INPUT_PIN, GPIO.FALLING, bouncetime=200)
         print("GPIO signal detected! Stopping services...")
 
-        subprocess.run(
-            ['sudo', 'shutdown', '-h', 'now'],
-            capture_output=True,
-            text=True,
-            check=True
-        )
+        # You can add as many services as needed.
+        services = [
+            "autohotspot-daemon.service",
+            "phoniebox-buttons-usb-encoder.service" 
+            "phoniebox-gpio-control.service",
+            "phoniebox-rfid-reader.service",
+            "phoniebox-startup-scripts.service"
+        ]
+        print(f"Attempting to stop services: {', '.join(services)}")
+        for service in services:
+            try:
+                # Use subprocess.run to execute the systemctl command
+                # capture_output=True to get stdout/stderr, text=True to decode as text
+                # check=True will raise CalledProcessError if the command returns a non-zero exit code
+                result = subprocess.run(
+                    ["sudo", "systemctl", "stop", service],
+                    capture_output=True,
+                    text=True,
+                    check=True
+                )
+                print(f"Successfully stopped {service}.")
+                if result.stdout:
+                    print(f"  Stdout: {result.stdout.strip()}")
+                if result.stderr:
+                    print(f"  Stderr: {result.stderr.strip()}")
+            except subprocess.CalledProcessError as e:
+                print(f"Error stopping {service}: {e}")
+                print(f"  Command: {e.cmd}")
+                print(f"  Return Code: {e.returncode}")
+                print(f"  Stdout: {e.stdout.strip()}")
+                print(f"  Stderr: {e.stderr.strip()}")
+            except FileNotFoundError:
+                print(f"Error: 'systemctl' command not found. Is systemd installed and in PATH?")
+            except Exception as e:
+                print(f"An unexpected error occurred while stopping {service}: {e}")
+        print("Finished attempting to stop services.")
+
+        # Set CUT_PINT to HIGH
+        # GPIO.output(CUT_PIN, GPIO.HIGH)
+
+        # Set OUTPUT_PIN to LOW
+        # GPIO.output(OUTPUT_PIN, GPIO.LOW)
+        print(f"GPIO {OUTPUT_PIN} set to LOW.")
+        print("Script finished.")
 
     except KeyboardInterrupt:
         print("\nScript terminated by user (Ctrl+C).")
