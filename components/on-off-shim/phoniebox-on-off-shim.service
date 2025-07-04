@@ -1,0 +1,14 @@
+[Unit]
+Description=Phoniebox On Off Shim Service
+After=network.target iptables.service firewalld.service
+
+[Service]
+User=pi
+Group=pi
+Restart=always
+RestartSec=10
+WorkingDirectory=/home/pi/RPi-Jukebox-RFID
+ExecStart=/home/pi/RPi-Jukebox-RFID/components/on-off-shim/shutdown.py
+
+[Install]
+WantedBy=multi-user.target
