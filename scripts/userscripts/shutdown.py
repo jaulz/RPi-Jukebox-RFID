@@ -42,7 +42,7 @@ def main():
         GPIO.wait_for_edge(INPUT_PIN, GPIO.FALLING, bouncetime=200)
         print("GPIO signal detected! Stopping services...")
 
-        # You can add as many services as needed.
+"""         # You can add as many services as needed.
         services = [
             "autohotspot-daemon.service",
             "phoniebox-buttons-usb-encoder.service" 
@@ -77,15 +77,22 @@ def main():
                 print(f"Error: 'systemctl' command not found. Is systemd installed and in PATH?")
             except Exception as e:
                 print(f"An unexpected error occurred while stopping {service}: {e}")
-        print("Finished attempting to stop services.")
+        print("Finished attempting to stop services.") """
+
+        subprocess.run(
+            ['sudo', 'shutdown', '-h', 'now'],
+            capture_output=True,
+            text=True,
+            check=True
+        )
 
         # Set CUT_PINT to HIGH
         # GPIO.output(CUT_PIN, GPIO.HIGH)
 
         # Set OUTPUT_PIN to LOW
-        GPIO.output(OUTPUT_PIN, GPIO.LOW)
-        print(f"GPIO {OUTPUT_PIN} set to LOW.")
-        print("Script finished.")
+        #GPIO.output(OUTPUT_PIN, GPIO.LOW)
+        #print(f"GPIO {OUTPUT_PIN} set to LOW.")
+        #print("Script finished.")
 
     except KeyboardInterrupt:
         print("\nScript terminated by user (Ctrl+C).")
