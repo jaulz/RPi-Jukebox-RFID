@@ -13,7 +13,7 @@ OUTPUT_PIN = 4
 # CUT_PIN = 27
 
 # Define the minimum press duration in seconds
-PRESS_DURATION_SECONDS = 2.0
+PRESS_DURATION_SECONDS = 0.5
 
 # --- Setup GPIO ---
 def setup_gpio():
