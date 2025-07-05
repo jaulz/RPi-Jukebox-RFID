@@ -135,6 +135,12 @@ def main():
 
         # Set OUTPUT_PIN to LOW
         GPIO.output(OUTPUT_PIN, GPIO.LOW)
+        subprocess.run(
+            ["sudo", "shutdown", "-h", "now"],
+            capture_output=True,
+            text=True,
+            check=True
+        )
         print(f"GPIO {OUTPUT_PIN} set to LOW.")
         print("Script finished.")
 
