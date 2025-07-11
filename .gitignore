@@ -17,7 +17,6 @@ settings/ShowCover
 settings/sync-shared.conf
 settings/sync-shared-enabled
 settings/version
-htdocs/config.php
 scripts/deviceName.txt
 scripts/gpio-buttons.py
 settings/PhonieboxInstall.conf
