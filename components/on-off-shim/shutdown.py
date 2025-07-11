@@ -132,7 +132,7 @@ def main():
 
         # Play sound
         subprocess.run(
-            ["mpg123", "-f", "-30", "/home/pi/RPi-Jukebox-RFID/shared/shutdownsound.mp3"],
+            ["mpg123", "/home/pi/RPi-Jukebox-RFID/shared/shutdownsound.mp3"],
             capture_output=True,
             text=True,
             check=True
@@ -142,7 +142,7 @@ def main():
         # GPIO.output(CUT_PIN, GPIO.HIGH)
 
         # Set OUTPUT_PIN to LOW
-        GPIO.output(OUTPUT_PIN, GPIO.LOW)
+        #GPIO.output(OUTPUT_PIN, GPIO.LOW)
         subprocess.run(
             ["sudo", "shutdown", "-h", "now"],
             capture_output=True,
