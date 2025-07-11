@@ -23,6 +23,7 @@ shared/*
 !shared/startupsound.mp3
 !shared/shutdownsound.mp3
 playlists/*
+!playlists/.gitignore
 pythonenv*/*
 logs/*
 
