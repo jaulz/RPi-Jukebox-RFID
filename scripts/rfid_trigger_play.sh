@@ -78,8 +78,8 @@ play_beep() {
   mpg123 $PATHDATA/../misc/beep.mp3
 }
 
-play_zonk() {
-  mpg123 $PATHDATA/../misc/zonk.mp3
+play_error() {
+  mpg123 $PATHDATA/../misc/error.mp3
 }
 
 if [ "$CARDID" ]; then
@@ -581,7 +581,7 @@ if [ ! -z "$FOLDER" ]; then
             $PATHDATA/playout_controls.sh -c=playernext
         fi
     else
-        play_zonk
+        play_error
 
         if [ "${DEBUG_rfid_trigger_play_sh}" == "TRUE" ]; then echo "Path not found $AUDIOFOLDERSPATH/$FOLDER" >> $PATHDATA/../logs/debug.log; fi
     fi
