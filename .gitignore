@@ -23,6 +23,8 @@ scripts/gpio-buttons.py
 settings/PhonieboxInstall.conf
 
 shared/*
+!shared/startupsound.mp3
+!shared/shutdownsound.mp3
 playlists/*
 pythonenv*/*
 logs/*

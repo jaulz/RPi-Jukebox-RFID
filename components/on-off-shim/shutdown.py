@@ -130,6 +130,14 @@ def main():
                 print(f"An unexpected error occurred while stopping {service}: {e}")
         print("Finished attempting to stop services.")
 
+        # Play sound
+        subprocess.run(
+            ["/usr/bin/mpg123", "-f", "-30", "/home/pi/RPi-Jukebox-RFID/shared/shutdownsound.mp3"],
+            capture_output=True,
+            text=True,
+            check=True
+        )
+
         # Set CUT_PIN to HIGH
         # GPIO.output(CUT_PIN, GPIO.HIGH)
 
