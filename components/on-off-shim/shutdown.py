@@ -130,9 +130,11 @@ def main():
                 print(f"An unexpected error occurred while stopping {service}: {e}")
         print("Finished attempting to stop services.")
 
-        # Play sound
+        # Play sound (see scripts/startup-scripts.sh#51)
+        bootVolume = 30
+        volume = (32768*bootVolume/100)
         subprocess.run(
-            ["mpg123", "-a", "hw:1,0", "-f", "-1000", "/home/pi/RPi-Jukebox-RFID/shared/shutdownsound.mp3"],
+            ["mpg123", "-a", "hw:1,0", "-f", f"-{volume}", "/home/pi/RPi-Jukebox-RFID/shared/shutdownsound.mp3"],
             capture_output=True,
             text=True,
             check=True
