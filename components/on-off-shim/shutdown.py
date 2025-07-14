@@ -132,7 +132,7 @@ def main():
 
         # Play sound
         subprocess.run(
-            ["mpg123", "/home/pi/RPi-Jukebox-RFID/shared/shutdownsound.mp3"],
+            ["mpg123", "-a", "hw:1,0", "-f", "-1000", "/home/pi/RPi-Jukebox-RFID/shared/shutdownsound.mp3"],
             capture_output=True,
             text=True,
             check=True
