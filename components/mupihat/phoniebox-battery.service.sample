@@ -1,0 +1,15 @@
+[Unit]
+Description=Control service, to automate warn and shutdown
+After=local-fs.target sysinit.target phoniebox-mupihat.service
+DefaultDependencies=no
+
+[Service]
+Type=simple
+WorkingDirectory=/tmp/
+User=root
+ExecStart=/bin/bash -c '/home/pi/RPi-Jukebox-RFID/components/mupihat/battery.sh'
+ExecStop=/bin/kill -TERM $(cat /run/mupi_hat_control.pid)
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target

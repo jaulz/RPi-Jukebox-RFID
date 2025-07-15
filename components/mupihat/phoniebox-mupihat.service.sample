@@ -1,0 +1,15 @@
+[Unit]
+Description=MuPiHAT Service
+Before=basic.target
+After=local-fs.target sysinit.target
+DefaultDependencies=no
+
+[Service]
+Type=simple
+WorkingDirectory=/home/pi/RPi-Jukebox-RFID/
+User=root
+ExecStart=/usr/bin/python3 -B /home/pi/RPi-Jukebox-RFID/components/mupihat/mupihat.py -j /tmp/mupihat.json
+Restart=on-failure
+
+[Install]
+WantedBy=basic.target
