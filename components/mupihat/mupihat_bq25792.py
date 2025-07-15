@@ -59,9 +59,8 @@ class bq25792:
         
     """
      # constructor method
-    def __init__(self, i2c_device=1, i2c_addr=0x6b, busWS_ms=10, exit_on_error = False, battery_conf_file="/etc/mupibox/mupiboxconfig.json"):
+    def __init__(self, i2c_device=1, i2c_addr=0x6b, busWS_ms=10, exit_on_error = False):
         try:
-            self.battery_conf_file = battery_conf_file
             self.battery_conf = {'battery_type' : "Default",
                                  'v_100': 8100,
                                  'v_75': 7800,
@@ -147,8 +146,61 @@ class bq25792:
         load the battery configuration from yaml file
         '''
         try:
-            with open(self.battery_conf_file) as file:
-                config = json.load(file)
+            config = {
+                "mupihat": {
+                    "selected_battery": "ENERpower 2S2P 10.000mAh",
+                    "battery_types": [
+                        {
+                            "name": "Ansmann 2S1P",
+                            "config": {
+                                "v_100": "8100",
+                                "v_75": "7800",
+                                "v_50": "7400",
+                                "v_25": "7000",
+                                "v_0": "6700",
+                                "th_warning": "7000",
+                                "th_shutdown": "6800"
+                            }
+                        },
+                        {
+                            "name": "ENERpower 2S2P 10.000mAh",
+                            "config": {
+                                "v_100": "8000",
+                                "v_75": "7700",
+                                "v_50": "7300",
+                                "v_25": "6900",
+                                "v_0": "6000",
+                                "th_warning": "6500",
+                                "th_shutdown": "6150"
+                            }
+                        },
+                        {
+                            "name": "USB-C mode (no battery)",
+                            "config": {
+                                "v_100": "1",
+                                "v_75": "1",
+                                "v_50": "1",
+                                "v_25": "1",
+                                "v_0": "1",
+                                "th_warning": "0",
+                                "th_shutdown": "0"
+                            }
+                        },
+                        {
+                            "name": "Custom",
+                            "config": {
+                                "v_100": "8100",
+                                "v_75": "7800",
+                                "v_50": "7400",
+                                "v_25": "7000",
+                                "v_0": "6700",
+                                "th_warning": "7000",
+                                "th_shutdown": "6800"
+                            }
+                        }
+                    ]
+                }
+            }
             
             selected_battery_name = config["mupihat"]["selected_battery"]
             for bt in config["mupihat"]["battery_types"]:
