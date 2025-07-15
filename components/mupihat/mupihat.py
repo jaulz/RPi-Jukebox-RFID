@@ -165,8 +165,6 @@ def main(argv):
     except KeyboardInterrupt:
         print("mupyhat.py stopped by Key Interrupt")
         sys.exit(0)
-    except Exception as _error:
-            sys.stderr.write('MuPiHat error: %s\n' % str(_error))
     finally:
          pass  
 
