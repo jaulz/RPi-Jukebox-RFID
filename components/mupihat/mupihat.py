@@ -151,7 +151,7 @@ def main(argv):
                 print ("hat.REG0F_Charger_Control_0:                ",hat.REG0F_Charger_Control_0.get())
                 print ("hat.REG0F_Charger_Control_1:                ",hat.REG10_Charger_Control_1.get())
                 print ("hat.REG0F_Charger_Control_2:                ",hat.REG11_Charger_Control_2.get())
-                print ("hat.REG0F_Charger_Control_3:                ",hat.REG12_Charger_Control_3.get())
+                print ("hat.REG0F_Charger_Control_3:                ",hat.REG12_Charger_Control_3)
                 print ("hat.REG0F_Charger_Control_4:                ",hat.REG13_Charger_Control_4.get())
                 print ("hat.REG0F_Charger_Control_5:                ",hat.REG14_Charger_Control_5.get())
                 print ("")
