@@ -229,7 +229,7 @@ case $COMMAND in
         SHUFFLE_STATUS=$(echo -e status\\nclose | nc -w 1 localhost 6600 | grep -o -P '(?<=random: ).*')
         if [ "$SHUFFLE_STATUS" == 1 ] ; then  mpc random off; fi
         sleep 1
-        /usr/bin/mpg123 ${PATHDATA}/../shared/shutdownsound.mp3
+        env PULSE_SERVER=127.0.0.1 /usr/bin/mpg123 ${PATHDATA}/../shared/shutdownsound.mp3
         sleep 3
         ${POWEROFFCMD}
         ;;
