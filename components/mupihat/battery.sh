@@ -16,11 +16,11 @@ if [ "${BAT_CONNECTED}" -eq 1 ]; then
             if [ "$VBUS" -le 1000 ]; then
 				STATE=$(jq -r '.Bat_Stat' ${JSON_FILE})
 				if [ "${STATE}" = "LOW" ]; then
-					mpg123 -a hw:1,0 "$LOW_SOUND_FILE"
+					mpg123 "$LOW_SOUND_FILE"
 					echo "Battery state low"
 				elif [ "${STATE}" = "SHUTDOWN" ]; then
 					echo "Battery state to low - shutdown initiated"
-					mpg123 -a hw:1,0 "$SHUTDOWN_SOUND_FILE"
+					mpg123 "$SHUTDOWN_SOUND_FILE"
 					poweroff
 				fi
 			fi

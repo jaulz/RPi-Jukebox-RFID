@@ -134,7 +134,7 @@ def main():
         bootVolume = 30
         volume = (32768*bootVolume/100)
         subprocess.run(
-            ["mpg123", "-a", "hw:1,0", "-f", f"-{volume}", "/home/pi/RPi-Jukebox-RFID/shared/shutdownsound.mp3"],
+            ["mpg123", "-f", f"-{volume}", "/home/pi/RPi-Jukebox-RFID/shared/shutdownsound.mp3"],
             capture_output=True,
             text=True,
             check=True
