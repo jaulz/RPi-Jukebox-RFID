@@ -75,11 +75,11 @@ if [ "${DEBUG_rfid_trigger_play_sh}" == "TRUE" ]; then echo "Sync: SYNCSHAREDENA
 # Check if we got the card ID or the audio folder from the prompt.
 # Sloppy error check, because we assume the best.
 play_beep() {
-  mpg123 $PATHDATA/../misc/beep.mp3
+  env PULSE_SERVER=127.0.0.1 mpg123 $PATHDATA/../misc/beep.mp3
 }
 
 play_error() {
-  mpg123 $PATHDATA/../misc/error.mp3
+  env PULSE_SERVER=127.0.0.1 mpg123 $PATHDATA/../misc/error.mp3
 }
 
 if [ "$CARDID" ]; then
